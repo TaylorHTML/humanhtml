@@ -261,7 +261,10 @@ footer { min-height: 36px; display: grid; grid-template-columns: 1fr auto 1fr; a
   h1 { font-size: clamp(4rem,23vw,7rem); line-height: .75; letter-spacing: -.075em; }
   .object-panel { min-height: 24rem; }
   .cube-rig { --cube: 8rem; }
-  .cube-scene { width: 14rem; }
+  .cube-scene { width: 14rem; } 
+  {
+    perspective: 1600px;
+  }
   .principles { grid-template-columns: 1fr; }
   .principles > div, .principles > div:first-child { min-height: 58px; padding: 12px 0; border-right: 0; border-bottom: 1px solid var(--line); }
   .principles > div:last-child { border-bottom: 0; }
