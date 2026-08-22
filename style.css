@@ -115,7 +115,7 @@ h1 .outline {
 
 .cube-scene { width: clamp(15rem,27vw,23rem); aspect-ratio: 1; display: grid; place-items: center; perspective: 950px; position: relative; z-index: 4; }
 .cube-rig { --cube: clamp(9rem,14vw,12rem); position: relative; width: var(--cube); height: var(--cube); transform-style: preserve-3d; transition: transform .18s ease-out; }
-.cube { position: absolute; inset: 0; transform-style: preserve-3d; animation: cubeSpin 15s linear infinite; }
+.cube { position: absolute; inset: 0; transform-style: preserve-3d; animation: cubeSpin 16s linear infinite reverse; }
 .face {
   position: absolute; width: 100%; height: 100%; display: grid; place-items: center;
   border: 1px solid var(--blue); color: var(--blue); backface-visibility: visible;
@@ -276,16 +276,3 @@ footer { min-height: 36px; display: grid; grid-template-columns: 1fr auto 1fr; a
   *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
 }
 
-.blink-cursor {
-  animation: blinkCursor 1s steps(1) infinite;
-}
-
-@keyframes blinkCursor {
-  0%, 49% {
-    opacity: 1;
-  }
-
-  50%, 100% {
-    opacity: 0;
-  }
-}
