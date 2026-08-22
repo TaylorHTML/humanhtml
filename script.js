@@ -153,3 +153,183 @@ window.addEventListener(
   "resize",
   updateViewport
 );
+
+/* =====================================
+   ANIMATED HUMANHTML FAVICON
+===================================== */
+
+const favicon = document.getElementById("favicon");
+
+const faviconCanvas = document.createElement("canvas");
+faviconCanvas.width = 64;
+faviconCanvas.height = 64;
+
+const faviconCtx = faviconCanvas.getContext("2d");
+
+const cubeVertices = [
+  [-1, -1, -1],
+  [ 1, -1, -1],
+  [ 1,  1, -1],
+  [-1,  1, -1],
+
+  [-1, -1,  1],
+  [ 1, -1,  1],
+  [ 1,  1,  1],
+  [-1,  1,  1]
+];
+
+const cubeEdges = [
+  [0,1],
+  [1,2],
+  [2,3],
+  [3,0],
+
+  [4,5],
+  [5,6],
+  [6,7],
+  [7,4],
+
+  [0,4],
+  [1,5],
+  [2,6],
+  [3,7]
+];
+
+let faviconRotation = 0;
+
+
+function rotateCubePoint(point, angleX, angleY) {
+
+  let [x, y, z] = point;
+
+
+  /* rotate around Y */
+
+  const cosY = Math.cos(angleY);
+  const sinY = Math.sin(angleY);
+
+  const xY =
+    x * cosY -
+    z * sinY;
+
+  const zY =
+    x * sinY +
+    z * cosY;
+
+
+  x = xY;
+  z = zY;
+
+
+  /* rotate around X */
+
+  const cosX = Math.cos(angleX);
+  const sinX = Math.sin(angleX);
+
+  const yX =
+    y * cosX -
+    z * sinX;
+
+  const zX =
+    y * sinX +
+    z * cosX;
+
+
+  return [
+    x,
+    yX,
+    zX
+  ];
+}
+
+
+function projectCubePoint(point) {
+
+  const [x, y, z] = point;
+
+  const distance = 4;
+
+  const scale =
+    18 / (distance - z);
+
+
+  return [
+    32 + x * scale,
+    32 + y * scale
+  ];
+}
+
+
+function drawFaviconCube() {
+
+  faviconCtx.clearRect(
+    0,
+    0,
+    64,
+    64
+  );
+
+
+  const transformed =
+    cubeVertices.map((point) => {
+
+      const rotated =
+        rotateCubePoint(
+          point,
+          faviconRotation * 0.65,
+          faviconRotation
+        );
+
+      return projectCubePoint(rotated);
+
+    });
+
+
+  faviconCtx.strokeStyle =
+    "#0033ff";
+
+  faviconCtx.lineWidth =
+    3;
+
+  faviconCtx.lineCap =
+    "round";
+
+  faviconCtx.lineJoin =
+    "round";
+
+
+  cubeEdges.forEach(([start, end]) => {
+
+    faviconCtx.beginPath();
+
+    faviconCtx.moveTo(
+      transformed[start][0],
+      transformed[start][1]
+    );
+
+    faviconCtx.lineTo(
+      transformed[end][0],
+      transformed[end][1]
+    );
+
+    faviconCtx.stroke();
+
+  });
+
+
+  favicon.href =
+    faviconCanvas.toDataURL("image/png");
+
+
+  faviconRotation +=
+    0.045;
+
+
+  requestAnimationFrame(
+    drawFaviconCube
+  );
+
+}
+
+
+drawFaviconCube();
