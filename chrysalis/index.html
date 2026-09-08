@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Chrysalis — Denver DIY venue for music, art, comedy and community.">
+  <title>CHRYSALIS // DENVER</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div class="ambient-grid" aria-hidden="true"></div>
+  <div class="scanlines" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <a class="brand" href="#home">chrysalis</a>
+
+    <div class="header-meta">
+      <span>independent venue / denver</span>
+      <span class="live-dot">online</span>
+    </div>
+
+    <nav class="site-nav" aria-label="Primary navigation">
+      <a href="#events">shows</a>
+      <a href="#photos">archive</a>
+      <a href="#book">book</a>
+      <a href="#info">info</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="home" class="hero">
+      <div class="hero-meta">
+        <span>venue_0303</span>
+        <span>diy music + art / transmission 303</span>
+        <span id="clock">--:--</span>
+      </div>
+
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <p class="micro">CHRYSALIS / DENVER</p>
+          <h1>Chrysalis</h1>
+          <p class="hero-text">
+            Music, art, comedy, community, noise, experiments.
+            A room for things that need somewhere to become real.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#events">view shows ↘</a>
+            <a href="#book">request a date ↘</a>
+          </div>
+        </div>
+
+        <div class="object-panel">
+          <div class="object-topline">
+            <span>OBJ_303 // CHRYSALIS.FORM</span>
+            <span id="pointerReadout">x:+000 y:+000</span>
+          </div>
+
+          <div class="wire-object" aria-hidden="true">
+            <span class="ring ring-1"></span>
+            <span class="ring ring-2"></span>
+            <span class="ring ring-3"></span>
+            <span class="ring ring-4"></span>
+            <span class="axis axis-a"></span>
+            <span class="axis axis-b"></span>
+            <span class="axis axis-c"></span>
+            <span class="core">C</span>
+          </div>
+
+          <div class="object-caption">
+            <span>pointer reactive / venue object</span>
+            <span>denver / co</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="principles">
+        <div><span>01</span><strong>shows with feeling.</strong></div>
+        <div><span>02</span><strong>built by community.</strong></div>
+        <div><span>03</span><strong>made for people.</strong></div>
+      </div>
+    </section>
+
+    <div class="transmission" aria-hidden="true">
+      <div>
+        ✦ LIVE MUSIC ✦ ART ✦ COMEDY ✦ COMMUNITY ✦ DIY ✦ EXPERIMENTS ✦ BUILT BY HAND
+        ✦ LIVE MUSIC ✦ ART ✦ COMEDY ✦ COMMUNITY ✦ DIY ✦ EXPERIMENTS ✦ BUILT BY HAND
+      </div>
+    </div>
+
+    <section id="events" class="section">
+      <div class="section-head">
+        <div>
+          <p class="micro">SYS_01 // EVENTS</p>
+          <h2>Shows<br>incoming.</h2>
+        </div>
+        <p class="section-note">
+          Browse public events. Open future dates can start a booking request.
+        </p>
+      </div>
+
+      <div class="window">
+        <div class="window-bar">
+          <span>calendar://chrysalis.public</span>
+          <span>[ × ]</span>
+        </div>
+
+        <div class="calendar-toolbar">
+          <h3 id="calendarTitle">MONTH YEAR</h3>
+          <div class="calendar-controls">
+            <button id="prevMonth" type="button">←</button>
+            <button id="todayBtn" type="button">today</button>
+            <button id="nextMonth" type="button">→</button>
+          </div>
+        </div>
+
+        <div class="calendar-weekdays" aria-hidden="true">
+          <span>sun</span><span>mon</span><span>tue</span><span>wed</span>
+          <span>thu</span><span>fri</span><span>sat</span>
+        </div>
+
+        <div id="calendarGrid" class="calendar-grid" role="grid" aria-label="Venue calendar"></div>
+
+        <div class="calendar-legend">
+          <span><i class="event-square"></i> event</span>
+          <span><i class="open-square"></i> open date</span>
+        </div>
+      </div>
+
+      <div class="events-list-wrap">
+        <div class="list-label">events this month</div>
+        <div id="eventsList"></div>
+      </div>
+    </section>
+
+    <section id="photos" class="section">
+      <div class="section-head">
+        <div>
+          <p class="micro">SYS_02 // MEMORY</p>
+          <h2>Image<br>archive.</h2>
+        </div>
+        <p class="section-note">
+          Shows, art, friends, noise, aftermath. Click any image to enlarge it.
+        </p>
+      </div>
+
+      <div id="photoGallery" class="photo-gallery" aria-live="polite"></div>
+    </section>
+
+    <section id="book" class="section">
+      <div class="section-head">
+        <div>
+          <p class="micro">SYS_03 // REQUEST</p>
+          <h2>Book the<br>room.</h2>
+        </div>
+        <p class="section-note">
+          This sends a request only. Chrysalis confirms dates manually.
+        </p>
+      </div>
+
+      <div class="window booking-window">
+        <div class="window-bar">
+          <span>chrysalis://booking.form</span>
+          <span>POST / FORMSPREE</span>
+        </div>
+
+        <form
+          id="bookingForm"
+          class="booking-form"
+          action="https://formspree.io/f/mqpkldal"
+          method="POST"
+        >
+          <input type="hidden" name="_subject" value="New Chrysalis booking request">
+
+          <label>
+            <span>artist / organization</span>
+            <input name="artist_or_organization" required>
+          </label>
+
+          <label>
+            <span>contact name</span>
+            <input name="contact_name" autocomplete="name" required>
+          </label>
+
+          <label>
+            <span>email</span>
+            <input type="email" name="email" autocomplete="email" required>
+          </label>
+
+          <label>
+            <span>phone</span>
+            <input type="tel" name="phone" autocomplete="tel">
+          </label>
+
+          <label>
+            <span>preferred date</span>
+            <input id="preferredDate" type="date" name="preferred_date" required>
+          </label>
+
+          <label>
+            <span>alternate date</span>
+            <input type="date" name="alternate_date">
+          </label>
+
+          <label>
+            <span>event type</span>
+            <select name="event_type" required>
+              <option value="">choose one</option>
+              <option>Concert / live music</option>
+              <option>Comedy</option>
+              <option>Art event</option>
+              <option>Private event</option>
+              <option>Community event</option>
+              <option>Other</option>
+            </select>
+          </label>
+
+          <label>
+            <span>expected attendance</span>
+            <input type="number" min="1" name="expected_attendance">
+          </label>
+
+          <label class="full">
+            <span>website / social</span>
+            <input type="text" name="link" placeholder="website, Instagram, Bandcamp, etc.">
+          </label>
+
+          <label class="full">
+            <span>tell us about it</span>
+            <textarea name="event_details" rows="6" required></textarea>
+          </label>
+
+          <label class="full">
+            <span>production / equipment needs</span>
+            <textarea name="production_needs" rows="4"></textarea>
+          </label>
+
+          <div class="form-bottom full">
+            <span>booking request will be reviewed by venue staff</span>
+            <button type="submit">send request ↗</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <section id="info" class="section">
+      <div class="section-head">
+        <div>
+          <p class="micro">SYS_04 // VENUE DATA</p>
+          <h2>Useful<br>information.</h2>
+        </div>
+        <p class="section-note">
+          Replace these placeholders with the actual venue details after the meeting.
+        </p>
+      </div>
+
+      <div class="info-grid">
+        <article>
+          <span>01 / capacity</span>
+          <h3>How many people?</h3>
+          <p>Add real capacity + standing/seating information here.</p>
+        </article>
+
+        <article>
+          <span>02 / sound + gear</span>
+          <h3>What's in the room?</h3>
+          <p>Add PA, microphones, monitors, stage size, load-in details, etc.</p>
+        </article>
+
+        <article>
+          <span>03 / accessibility</span>
+          <h3>Getting inside.</h3>
+          <p>Add entrance, restroom, seating, parking and accessibility details.</p>
+        </article>
+
+        <article>
+          <span>04 / contact</span>
+          <h3>Talk to Chrysalis.</h3>
+          <p>Add public email, Instagram, address and contact information.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="status-section">
+      <div class="window status-window">
+        <div class="window-bar">
+          <span>chrysalis://status[ × ]</span>
+          <span>303</span>
+        </div>
+        <div class="terminal">
+          <p>&gt; initializing chrysalis...</p>
+          <p>&gt; loading community layer</p>
+          <p>&gt; indexing public events</p>
+          <p>&gt; opening booking channel</p>
+          <p>&gt; preserving strange little things</p>
+          <p>&gt; status: alive and becoming_</p>
+        </div>
+      </div>
+
+      <div class="giant-word" aria-hidden="true">CHRYSALIS</div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <span>html css js</span>
+    <span>chrysalis / denver</span>
+    <span>© <span id="year"></span></span>
+    <span id="viewportReadout">0000 × 0000</span>
+  </footer>
+
+  <dialog id="eventDialog" class="event-dialog">
+    <button id="closeDialog" class="dialog-close" type="button" aria-label="Close">[X]</button>
+    <p id="dialogDate" class="micro"></p>
+    <img id="dialogFlyer" class="event-flyer-modal" src="" alt="" hidden>
+    <h2 id="dialogTitle"></h2>
+    <p id="dialogMeta"></p>
+    <p id="dialogDescription"></p>
+  </dialog>
+
+  <dialog id="photoDialog" class="photo-dialog">
+    <button id="closePhotoDialog" class="dialog-close" type="button" aria-label="Close">[X]</button>
+    <button id="prevPhoto" class="photo-nav photo-nav-prev" type="button" aria-label="Previous photo">←</button>
+    <figure>
+      <img id="photoDialogImage" src="" alt="">
+    </figure>
+    <button id="nextPhoto" class="photo-nav photo-nav-next" type="button" aria-label="Next photo">→</button>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
