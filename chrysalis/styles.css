@@ -1568,38 +1568,60 @@ background-image:
 }
 
 
-/* *speaker */
+/* ==========================================================
+   MOBILE SPEAKERS
+   ========================================================== */
 
 @media (max-width: 650px) {
 
+  /* reduce the gap between the intro paragraph and speakers */
+  #events .section-heading {
+    margin-bottom: 1.5rem;
+  }
+
   .speaker-stage {
     display: grid;
+
     grid-template-columns: 1fr 1fr;
-    gap: 8px 18px;
+    grid-template-rows: auto auto;
+
+    column-gap: 18px;
+    row-gap: 12px;
+
     align-items: end;
+    width: 100%;
   }
 
   .speaker {
     display: block !important;
+
     width: 80px;
     height: auto;
+
+    /* removes the desktop spacing */
+    margin-top: 0;
   }
 
   .speaker-left {
     grid-column: 1;
+    grid-row: 1;
+
     justify-self: end;
   }
 
   .speaker-right {
     grid-column: 2;
+    grid-row: 1;
+
     justify-self: start;
 
-    /* mirrored copy of speakerleft.gif */
-    transform: scaleX(-1);
+    transform: scaleX(-1) !important;
   }
 
   .events-list {
     grid-column: 1 / -1;
+    grid-row: 2;
+
     width: 100%;
   }
 
