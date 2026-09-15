@@ -1,12 +1,3 @@
-# CHRYSALIS v8
-
-Latest changes:
-- radioactive GIF now sits ABOVE “welcome to the website of”
-- GIF banner moves LEFT by default
-- hover reverses the banner RIGHT
-- on touch/mobile, tapping toggles LEFT / RIGHT
-- mobile chain spacers show one centered chain only
-
 # CHRYSALIS v6
 
 GIF-banner behavior fix:

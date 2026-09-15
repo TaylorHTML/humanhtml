@@ -147,7 +147,7 @@ textarea {
   display: block;
   width: 70px;
   height: auto;
-  margin: 0 auto .8rem;
+  margin: 0 auto 1.2rem;
 }
 
 .hero h1 {
@@ -1084,21 +1084,6 @@ textarea {
   .gif-strip img {
     max-width: 110px;
     max-height: 78px;
-  }
-
-
-  .chain-track {
-    min-width: 0;
-    justify-content: center;
-  }
-
-  .chain-track img {
-    display: none;
-  }
-
-  .chain-track img:first-child {
-    display: block;
-    width: min(170px, 72vw);
   }
 
   .site-section {

@@ -131,33 +131,24 @@ bookingForm.addEventListener("submit", submitBookingForm);
 const gifMarquee = document.querySelector("#gifMarquee");
 
 if (gifMarquee) {
-  // Positive scrollLeft means the content moves LEFT visually.
-  let marqueeDirection = 1; // default: LEFT
-  let touchReversed = false;
+  let marqueeDirection = 1;
   let lastTime = performance.now();
-
   const pixelsPerSecond = 34;
   const prefersReducedMotion =
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  // Desktop/laptop: hover reverses to RIGHT.
-  gifMarquee.addEventListener("pointerenter", event => {
-    if (event.pointerType !== "touch") {
-      marqueeDirection = -1;
-    }
+  gifMarquee.addEventListener("pointerenter", () => {
+    marqueeDirection = -1;
   });
 
-  gifMarquee.addEventListener("pointerleave", event => {
-    if (event.pointerType !== "touch") {
-      marqueeDirection = 1;
-    }
+  gifMarquee.addEventListener("pointerleave", () => {
+    marqueeDirection = 1;
   });
 
-  // Mobile/touch: each tap toggles the direction.
-  gifMarquee.addEventListener("pointerup", event => {
+  // Touch devices have no hover. A tap flips direction without navigating.
+  gifMarquee.addEventListener("pointerdown", event => {
     if (event.pointerType === "touch") {
-      touchReversed = !touchReversed;
-      marqueeDirection = touchReversed ? -1 : 1;
+      marqueeDirection *= -1;
     }
   });
 
@@ -170,11 +161,9 @@ if (gifMarquee) {
 
       const halfWidth = gifMarquee.scrollWidth / 2;
 
-      if (marqueeDirection > 0 && gifMarquee.scrollLeft >= halfWidth) {
+      if (gifMarquee.scrollLeft >= halfWidth) {
         gifMarquee.scrollLeft -= halfWidth;
-      }
-
-      if (marqueeDirection < 0 && gifMarquee.scrollLeft <= 0) {
+      } else if (gifMarquee.scrollLeft <= 0 && marqueeDirection < 0) {
         gifMarquee.scrollLeft += halfWidth;
       }
     }
