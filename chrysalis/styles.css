@@ -546,7 +546,7 @@ textarea {
 }
 
 .speaker-right {
-  justify-self: start;
+  transform: scaleX(-1);
 }
 
 .events-list {
@@ -1563,6 +1563,44 @@ background-image:
 
   .nav-logo {
     width: 130px;
+  }
+
+}
+
+
+/* *speaker */
+
+@media (max-width: 650px) {
+
+  .speaker-stage {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 18px;
+    align-items: end;
+  }
+
+  .speaker {
+    display: block !important;
+    width: 80px;
+    height: auto;
+  }
+
+  .speaker-left {
+    grid-column: 1;
+    justify-self: end;
+  }
+
+  .speaker-right {
+    grid-column: 2;
+    justify-self: start;
+
+    /* mirrored copy of speakerleft.gif */
+    transform: scaleX(-1);
+  }
+
+  .events-list {
+    grid-column: 1 / -1;
+    width: 100%;
   }
 
 }
