@@ -1461,14 +1461,14 @@ html[data-theme="light"] .logo-image {
     Only the radial gradient moves inside it.
   */
 
-  background-image:
-    radial-gradient(
-      circle,
-      rgba(125, 105, 255, .28) 0%,
-      rgba(90, 125, 255, .22) 24%,
-      rgba(80, 205, 95, .18) 44%,
-      rgba(80, 205, 95, 0) 70%
-    );
+background-image:
+  radial-gradient(
+    circle,
+    rgba(130, 105, 255, .48) 0%,
+    rgba(90, 125, 255, .40) 24%,
+    rgba(80, 205, 95, .32) 44%,
+    rgba(80, 205, 95, 0) 70%
+  );
 
   background-repeat: no-repeat;
 
@@ -1476,7 +1476,7 @@ html[data-theme="light"] .logo-image {
     Size of the colored light.
     Bigger = softer / more atmospheric.
   */
-  background-size: 48% 180%;
+  background-size: 58% 190%;
 
   background-position: -35% 55%;
 
