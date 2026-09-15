@@ -1549,27 +1549,6 @@ background-image:
 }
 
 
-/* ==========================================================
-   MOBILE
-   ========================================================== */
-
-@media (max-width: 650px) {
-
-  .hero-logo {
-    width: 78vw;
-    max-width: none;
-    margin: 0 auto;
-  }
-
-  .nav-logo {
-    width: 130px;
-  }
-
-}
-
-
-
-
 
 @media (max-width: 650px) {
 
@@ -1581,7 +1560,10 @@ background-image:
     display: grid;
 
     grid-template-columns: 1fr auto 1fr;
-    grid-template-rows: auto auto;
+
+    grid-template-areas:
+      "left smile right"
+      "events events events";
 
     column-gap: 12px;
     row-gap: 12px;
@@ -1598,38 +1580,34 @@ background-image:
   }
 
   .speaker-left {
-    grid-column: 1;
-    grid-row: 1;
+    grid-area: left;
     justify-self: end;
   }
 
   .speaker-smiley {
-    display: block;
+    display: block !important;
 
-    grid-column: 2;
-    grid-row: 1;
+    grid-area: smile;
 
     width: 54px;
     height: auto;
 
     justify-self: center;
+    align-self: center;
   }
 
   .speaker-right {
-    grid-column: 3;
-    grid-row: 1;
-
+    grid-area: right;
     justify-self: start;
 
     transform: scaleX(-1) !important;
   }
 
   .events-list {
-    grid-column: 1 / -1;
-    grid-row: 2;
-
+    grid-area: events;
     width: 100%;
   }
+
 }
 
 
