@@ -1416,23 +1416,122 @@ html[data-theme="dark"] .calendar-day.is-full {
   position: relative;
   display: block;
   overflow: hidden;
+
+  /* matches the SVG's actual proportions */
+  aspect-ratio: 432 / 162;
 }
 
 .logo-image {
   display: block;
+
   width: 100%;
-  height: auto;
+  height: 100%;
+
+  object-fit: contain;
 }
 
-/* base logo color */
+
+/* ==========================================================
+   BASE LOGO COLOR
+   ========================================================== */
+
+/* white logo in dark mode */
 html[data-theme="dark"] .logo-image {
   filter: invert(1);
 }
 
+/* black logo in light mode */
 html[data-theme="light"] .logo-image {
   filter: none;
 }
 
+
+/* ==========================================================
+   MOVING RADIAL LIGHT
+   ========================================================== */
+
+.logo-effect::after {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  /*
+    The overlay itself stays perfectly still.
+    Only the radial gradient moves inside it.
+  */
+
+  background-image:
+    radial-gradient(
+      circle,
+      rgba(125, 105, 255, .28) 0%,
+      rgba(90, 125, 255, .22) 24%,
+      rgba(80, 205, 95, .18) 44%,
+      rgba(80, 205, 95, 0) 70%
+    );
+
+  background-repeat: no-repeat;
+
+  /*
+    Size of the colored light.
+    Bigger = softer / more atmospheric.
+  */
+  background-size: 48% 180%;
+
+  background-position: -35% 55%;
+
+
+  /* ========================================================
+     MASK
+     Keeps the color completely inside the logo
+     ======================================================== */
+
+  -webkit-mask-image: var(--logo);
+  mask-image: var(--logo);
+
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+
+  -webkit-mask-position: center;
+  mask-position: center;
+
+  -webkit-mask-size: contain;
+  mask-size: contain;
+
+
+  animation: logo-light-drift 10s ease-in-out infinite;
+
+  pointer-events: none;
+}
+
+
+/* ==========================================================
+   LIGHT MOVEMENT
+   ========================================================== */
+
+@keyframes logo-light-drift {
+
+  0% {
+    background-position: -35% 55%;
+  }
+
+  20% {
+    background-position: 25% 20%;
+  }
+
+  45% {
+    background-position: 110% 45%;
+  }
+
+  70% {
+    background-position: 55% 85%;
+  }
+
+  100% {
+    background-position: -35% 55%;
+  }
+
+}
 
 
 /* ==========================================================
@@ -1450,18 +1549,20 @@ html[data-theme="light"] .logo-image {
 }
 
 
-/* MOBILE */
+/* ==========================================================
+   MOBILE
+   ========================================================== */
 
 @media (max-width: 650px) {
+
   .hero-logo {
     width: 78vw;
     max-width: none;
-
-    /* VERY IMPORTANT: no scale transform */
-    transform: none;
+    margin: 0 auto;
   }
 
   .nav-logo {
     width: 130px;
   }
+
 }
