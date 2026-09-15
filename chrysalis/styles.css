@@ -1409,63 +1409,56 @@ html[data-theme="dark"] .calendar-day.is-full {
 }
 
 /* ==========================================================
-   CHRYSALIS LOGO + MOVING LIGHT
+   CHRYSALIS LOGO
    ========================================================== */
 
 .logo-effect {
   position: relative;
   display: block;
-
-  /* keeps the SVG's proportions */
-  aspect-ratio: 724 / 122;
-
-  /* the SVG becomes the shape/mask */
-  -webkit-mask-image: var(--logo);
-  mask-image: var(--logo);
-
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-
-  -webkit-mask-position: center;
-  mask-position: center;
-
-  -webkit-mask-size: contain;
-  mask-size: contain;
-
-  /* normal logo color */
-  background: var(--ink);
-
-  overflow: hidden;
 }
 
-/* Moving colored light */
+.logo-image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* black SVG -> white in dark mode */
+html[data-theme="dark"] .logo-image {
+  filter: invert(1);
+}
+
+/* original black in light mode */
+html[data-theme="light"] .logo-image {
+  filter: none;
+}
+
+
+/* MOVING COLORED LIGHT */
+
 .logo-effect::after {
   content: "";
   position: absolute;
   inset: 0;
 
-  background:
-    linear-gradient(
-      110deg,
-      transparent 0%,
-      transparent 34%,
-      rgba(25, 214, 0, 0) 39%,
-      rgba(25, 214, 0, .9) 45%,
-      rgba(70, 105, 255, 1) 50%,
-      rgba(180, 80, 255, .9) 55%,
-      rgba(180, 80, 255, 0) 61%,
-      transparent 66%,
-      transparent 100%
-    );
+  background: linear-gradient(
+    110deg,
+    transparent 35%,
+    rgba(25, 214, 0, 0) 40%,
+    rgba(25, 214, 0, .9) 46%,
+    rgba(70, 105, 255, 1) 50%,
+    rgba(180, 80, 255, .9) 54%,
+    rgba(180, 80, 255, 0) 60%,
+    transparent 65%
+  );
 
   background-size: 300% 100%;
-  background-position: 150% 0;
 
-  animation: logo-light-sweep 6s linear infinite;
-
-  /* same logo-shaped mask */
   -webkit-mask-image: var(--logo);
   mask-image: var(--logo);
+
+  -webkit-mask-size: contain;
+  mask-size: contain;
 
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
@@ -1473,8 +1466,7 @@ html[data-theme="dark"] .calendar-day.is-full {
   -webkit-mask-position: center;
   mask-position: center;
 
-  -webkit-mask-size: contain;
-  mask-size: contain;
+  animation: logo-light-sweep 7s linear infinite;
 
   pointer-events: none;
 }
@@ -1489,12 +1481,15 @@ html[data-theme="dark"] .calendar-day.is-full {
   }
 }
 
+
+/* SIZES */
+
 .hero-logo {
-  width: min(920px, 94vw);
+  width: min(900px, 94vw);
   margin: 0 auto;
 }
 
 .nav-logo {
-  width: 110px;
+  width: 105px;
   flex: 0 0 auto;
 }
