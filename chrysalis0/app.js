@@ -1,31 +1,37 @@
-/* Shared settings live in config.js so index + gallery use the same source. */
-const SITE_CONFIG = window.CHRYSALIS_CONFIG;
+/* ==========================================================
+   CHRYSALIS — SITE CONFIG
+   ========================================================== */
+
+const SITE_CONFIG = {
+  calendar: {
+    useGoogleCalendar: false,
+    calendarId: "YOUR_PUBLIC_CALENDAR_ID",
+    apiKey: "YOUR_BROWSER_RESTRICTED_GOOGLE_API_KEY"
+  },
+
+  photos: {
+    source: "demo", // "demo" or "cloudinary"
+    cloudName: "YOUR_CLOUDINARY_CLOUD_NAME",
+    tag: "chrysalis-gallery"
+  }
+};
 
 /* ==========================================================
    SAMPLE EVENTS
-   Two sample events intentionally share one day so the
-   two-events-per-day calendar behavior is visible in the demo.
    ========================================================== */
 
 const SAMPLE_EVENTS = [
   {
     id: "sample-1",
-    title: "DAY ART MARKET",
-    start: isoForRelativeDate(3, 13, 0),
-    end: isoForRelativeDate(3, 17, 0),
-    description: "Demo daytime event.",
+    title: "LOCAL SHOW // THREE BANDS",
+    start: isoForRelativeDate(3, 20, 0),
+    end: isoForRelativeDate(3, 23, 0),
+    description:
+      "Demo event. Once Google Calendar is connected, public events will appear here automatically.",
     flyer: ""
   },
   {
     id: "sample-2",
-    title: "LOCAL SHOW // THREE BANDS",
-    start: isoForRelativeDate(3, 20, 0),
-    end: isoForRelativeDate(3, 23, 0),
-    description: "Demo nighttime event on the same date.",
-    flyer: ""
-  },
-  {
-    id: "sample-3",
     title: "ART NIGHT",
     start: isoForRelativeDate(10, 18, 30),
     end: isoForRelativeDate(10, 21, 30),
@@ -33,7 +39,7 @@ const SAMPLE_EVENTS = [
     flyer: ""
   },
   {
-    id: "sample-4",
+    id: "sample-3",
     title: "COMEDY / NOISE / ???",
     start: isoForRelativeDate(18, 19, 30),
     end: isoForRelativeDate(18, 22, 0),
@@ -44,16 +50,15 @@ const SAMPLE_EVENTS = [
 
 /* ==========================================================
    DEMO PHOTO DATA
-   Cleaner placeholder art: no grey line lattice.
    ========================================================== */
 
 const DEMO_PHOTOS = [
-  makeDemoPhoto("SHOW NIGHT", 900, 1180, "#cbffbe", "#dfe6ff"),
-  makeDemoPhoto("FRIENDS", 900, 720, "#f6d5ff", "#f8ffbd"),
-  makeDemoPhoto("ART", 900, 1060, "#fff0a8", "#d9ffef"),
-  makeDemoPhoto("LOUD ROOM", 900, 830, "#ffd9e5", "#d7e4ff"),
-  makeDemoPhoto("AFTER", 900, 1240, "#dfffbd", "#fff3c7"),
-  makeDemoPhoto("DENVER DIY", 900, 760, "#ccecff", "#f3d5ff")
+  makeDemoPhoto("SHOW NIGHT", 900, 1180, "#19d600"),
+  makeDemoPhoto("FRIENDS", 900, 720, "#0000ee"),
+  makeDemoPhoto("ART", 900, 1060, "#ffea00"),
+  makeDemoPhoto("LOUD ROOM", 900, 830, "#ff5a8a"),
+  makeDemoPhoto("AFTER", 900, 1240, "#a7ff3f"),
+  makeDemoPhoto("DENVER DIY", 900, 760, "#7cc8ff")
 ];
 
 /* ==========================================================
@@ -73,10 +78,13 @@ const dialogTitle = document.querySelector("#dialogTitle");
 const dialogMeta = document.querySelector("#dialogMeta");
 const dialogDescription = document.querySelector("#dialogDescription");
 
-const photoPreview = document.querySelector("#photoPreview");
+const photoGallery = document.querySelector("#photoGallery");
 const photoStatus = document.querySelector("#photoStatus");
-const photoPrev = document.querySelector("#photoPrev");
-const photoNext = document.querySelector("#photoNext");
+const photoDialog = document.querySelector("#photoDialog");
+const photoDialogImage = document.querySelector("#photoDialogImage");
+const closePhotoDialog = document.querySelector("#closePhotoDialog");
+const prevPhoto = document.querySelector("#prevPhoto");
+const nextPhoto = document.querySelector("#nextPhoto");
 
 const bookingForm = document.querySelector("#bookingForm");
 const bookingSubmit = document.querySelector("#bookingSubmit");
@@ -84,7 +92,6 @@ const bookingStatus = document.querySelector("#bookingStatus");
 
 let allEvents = [];
 let galleryPhotos = [];
-let previewIndex = 0;
 let currentMonth = startOfMonth(new Date());
 let currentPhotoIndex = 0;
 
@@ -118,61 +125,33 @@ document.querySelector("#todayBtn").addEventListener("click", () => {
 });
 
 closeEventDialog.addEventListener("click", () => eventDialog.close());
+closePhotoDialog.addEventListener("click", () => photoDialog.close());
+
+eventDialog.addEventListener("click", event => {
+  if (clickedOutsideDialog(event, eventDialog)) eventDialog.close();
+});
+
+photoDialog.addEventListener("click", event => {
+  if (clickedOutsideDialog(event, photoDialog)) photoDialog.close();
+});
+
+prevPhoto.addEventListener("click", event => {
+  event.stopPropagation();
+  showPreviousPhoto();
+});
+
+nextPhoto.addEventListener("click", event => {
+  event.stopPropagation();
+  showNextPhoto();
+});
+
+document.addEventListener("keydown", event => {
+  if (!photoDialog.open) return;
+  if (event.key === "ArrowLeft") showPreviousPhoto();
+  if (event.key === "ArrowRight") showNextPhoto();
+});
 
 bookingForm.addEventListener("submit", submitBookingForm);
-
-/* ==========================================================
-   GIF MARQUEE
-   Uses scrollLeft instead of animating a transformed parent.
-   This keeps animated GIFs repainting more reliably in Safari/iOS.
-   Hover reverses direction instead of pausing.
-   ========================================================== */
-
-const gifMarquee = document.querySelector("#gifMarquee");
-
-if (gifMarquee) {
-  let marqueeDirection = 1;
-  let lastTime = performance.now();
-  const pixelsPerSecond = 34;
-  const prefersReducedMotion =
-    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  gifMarquee.addEventListener("pointerenter", () => {
-    marqueeDirection = -1;
-  });
-
-  gifMarquee.addEventListener("pointerleave", () => {
-    marqueeDirection = 1;
-  });
-
-  // Touch devices have no hover. A tap flips direction without navigating.
-  gifMarquee.addEventListener("pointerdown", event => {
-    if (event.pointerType === "touch") {
-      marqueeDirection *= -1;
-    }
-  });
-
-  function animateGifMarquee(now) {
-    const dt = Math.min((now - lastTime) / 1000, 0.05);
-    lastTime = now;
-
-    if (!prefersReducedMotion) {
-      gifMarquee.scrollLeft += marqueeDirection * pixelsPerSecond * dt;
-
-      const halfWidth = gifMarquee.scrollWidth / 2;
-
-      if (gifMarquee.scrollLeft >= halfWidth) {
-        gifMarquee.scrollLeft -= halfWidth;
-      } else if (gifMarquee.scrollLeft <= 0 && marqueeDirection < 0) {
-        gifMarquee.scrollLeft += halfWidth;
-      }
-    }
-
-    requestAnimationFrame(animateGifMarquee);
-  }
-
-  requestAnimationFrame(animateGifMarquee);
-}
 
 init();
 
@@ -186,15 +165,7 @@ async function init() {
   renderUpcomingEvents();
 
   galleryPhotos = await loadPhotos();
-  renderPhotoPreview();
-
-  if (photoPrev) {
-    photoPrev.addEventListener("click", () => movePhotoPreview(-1));
-  }
-
-  if (photoNext) {
-    photoNext.addEventListener("click", () => movePhotoPreview(1));
-  }
+  renderPhotos();
 }
 
 /* ==========================================================
@@ -272,7 +243,6 @@ async function fetchGoogleCalendarEvents() {
 function renderCalendar() {
   const year = currentMonth.getFullYear();
   const month = currentMonth.getMonth();
-  const maxEvents = SITE_CONFIG.calendar.maxPublicEventsPerDay || 2;
 
   calendarTitle.textContent = new Intl.DateTimeFormat("en-US", {
     month: "long",
@@ -288,65 +258,46 @@ function renderCalendar() {
     const date = new Date(startDate);
     date.setDate(startDate.getDate() + i);
 
-    const dayEvents = eventsOnDate(date)
-      .sort((a, b) => parseEventDate(a.start) - parseEventDate(b.start));
+    const dayEvents = eventsOnDate(date);
 
-    const inCurrentMonth = date.getMonth() === month;
-    const isFuture = date >= stripTime(new Date());
-    const slotsLeft = Math.max(0, maxEvents - dayEvents.length);
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "calendar-day";
+    button.setAttribute("role", "gridcell");
 
-    const cell = document.createElement("div");
-    cell.className = "calendar-day";
-    cell.setAttribute("role", "gridcell");
+    if (date.getMonth() !== month) button.classList.add("outside-month");
+    if (isSameDate(date, new Date())) button.classList.add("is-today");
+    if (dayEvents.length) button.classList.add("has-event");
 
-    if (!inCurrentMonth) cell.classList.add("outside-month");
-    if (isSameDate(date, new Date())) cell.classList.add("is-today");
-    if (dayEvents.length) cell.classList.add("has-event");
-    if (dayEvents.length >= maxEvents) cell.classList.add("is-full");
-
-    const eventButtons = dayEvents.slice(0, maxEvents).map(event => `
-      <button
-        class="calendar-event-chip"
-        type="button"
-        data-event-id="${escapeHtml(event.id)}"
-      >
-        ${escapeHtml(event.title)}
-      </button>
-    `).join("");
-
-    let availability = "";
-
-    if (inCurrentMonth && isFuture && slotsLeft > 0) {
-      availability = `
-        <button
-          class="request-slot"
-          type="button"
-          data-request-date="${formatDateKey(date)}"
-        >
-          ${dayEvents.length === 0 ? "[open]" : "[request another slot]"}
-        </button>
-      `;
-    } else if (inCurrentMonth && dayEvents.length >= maxEvents) {
-      availability = `<span class="full-label">[full]</span>`;
-    }
-
-    cell.innerHTML = `
+    button.innerHTML = `
       <span class="day-number">${date.getDate()}</span>
-      ${eventButtons}
-      ${availability}
+      ${dayEvents.slice(0, 2).map(event =>
+        `<span class="day-event">${escapeHtml(event.title)}</span>`
+      ).join("")}
+      ${
+        dayEvents.length === 0 && date >= stripTime(new Date())
+          ? `<span class="open-label">[open]</span>`
+          : ""
+      }
     `;
 
-    cell.querySelectorAll("[data-event-id]").forEach(button => {
-      button.addEventListener("click", () => {
-        const event = allEvents.find(item => item.id === button.dataset.eventId);
-        if (event) openEvent(event);
-      });
-    });
+    button.setAttribute(
+      "aria-label",
+      `${new Intl.DateTimeFormat("en-US", { dateStyle: "full" }).format(date)}${
+        dayEvents.length
+          ? `, ${dayEvents.length} public event${dayEvents.length > 1 ? "s" : ""}`
+          : ", requestable date"
+      }`
+    );
 
-    const requestButton = cell.querySelector("[data-request-date]");
-    if (requestButton) {
-      requestButton.addEventListener("click", () => {
-        preferredDate.value = requestButton.dataset.requestDate;
+    button.addEventListener("click", () => {
+      if (dayEvents.length) {
+        openEvent(dayEvents[0]);
+        return;
+      }
+
+      if (date >= stripTime(new Date())) {
+        preferredDate.value = formatDateKey(date);
 
         document.querySelector("#booking").scrollIntoView({
           behavior: "smooth"
@@ -355,10 +306,10 @@ function renderCalendar() {
         window.setTimeout(() => {
           preferredDate.focus({ preventScroll: true });
         }, 400);
-      });
-    }
+      }
+    });
 
-    calendarGrid.appendChild(cell);
+    calendarGrid.appendChild(button);
   }
 }
 
@@ -368,7 +319,7 @@ function renderUpcomingEvents() {
   const upcoming = [...allEvents]
     .filter(event => parseEventDate(event.start) >= now)
     .sort((a, b) => parseEventDate(a.start) - parseEventDate(b.start))
-    .slice(0, 10);
+    .slice(0, 8);
 
   if (!upcoming.length) {
     eventsList.innerHTML =
@@ -459,7 +410,8 @@ function eventsOnDate(date) {
 
 async function loadPhotos() {
   if (SITE_CONFIG.photos.source !== "cloudinary") {
-    if (photoStatus) if (photoStatus) photoStatus.textContent = "";
+    photoStatus.textContent =
+      "demo images — switch the photo source to cloudinary when ready.";
     return DEMO_PHOTOS;
   }
 
@@ -467,18 +419,16 @@ async function loadPhotos() {
     const photos = await fetchCloudinaryPhotos();
 
     if (!photos.length) {
-      if (photoStatus) photoStatus.textContent = "no gallery photos uploaded yet.";
+      photoStatus.textContent = "no gallery photos uploaded yet.";
       return [];
     }
 
-    if (photoStatus) photoStatus.textContent = "";
+    photoStatus.textContent = "";
     return photos;
   } catch (error) {
     console.error("Cloudinary failed:", error);
-    if (photoStatus) {
-      photoStatus.textContent =
-        "photo feed unavailable — showing demo images instead.";
-    }
+    photoStatus.textContent =
+      "photo feed unavailable — showing demo images instead.";
     return DEMO_PHOTOS;
   }
 }
@@ -525,54 +475,63 @@ async function fetchCloudinaryPhotos() {
     });
 }
 
-function renderPhotoPreview() {
-  if (!photoPreview) return;
-
+function renderPhotos() {
   if (!galleryPhotos.length) {
-    photoPreview.innerHTML =
+    photoGallery.innerHTML =
       `<p class="empty-state">No photos posted yet.</p>`;
     return;
   }
 
-  const visibleCount = getPreviewVisibleCount();
-  const total = galleryPhotos.length;
-  const items = [];
+  photoGallery.innerHTML = galleryPhotos.map(photo => `
+    <button
+      class="photo-card"
+      type="button"
+      data-photo-id="${escapeHtml(photo.id)}"
+      aria-label="Open venue photo"
+    >
+      <img
+        src="${photo.src}"
+        alt="${escapeHtml(photo.alt || "Chrysalis venue photo")}"
+        loading="lazy"
+      >
+    </button>
+  `).join("");
 
-  for (let i = 0; i < Math.min(visibleCount, total); i++) {
-    const photo = galleryPhotos[(previewIndex + i) % total];
+  photoGallery.querySelectorAll("[data-photo-id]").forEach(button => {
+    button.addEventListener("click", () => {
+      const photo = galleryPhotos.find(
+        item => item.id === button.dataset.photoId
+      );
 
-    items.push(`
-      <a class="photo-preview-card" href="gallery.html" aria-label="Open full photo gallery">
-        <img
-          src="${photo.src}"
-          alt="${escapeHtml(photo.alt || "Chrysalis venue photo")}"
-          loading="lazy"
-        >
-      </a>
-    `);
-  }
-
-  photoPreview.innerHTML = items.join("");
+      if (photo) openPhoto(photo);
+    });
+  });
 }
 
-function movePhotoPreview(direction) {
+function openPhoto(photo) {
+  currentPhotoIndex = galleryPhotos.findIndex(item => item.id === photo.id);
+  showPhotoAtIndex(currentPhotoIndex);
+  photoDialog.showModal();
+}
+
+function showPhotoAtIndex(index) {
   if (!galleryPhotos.length) return;
 
-  previewIndex =
-    (previewIndex + direction + galleryPhotos.length) % galleryPhotos.length;
+  currentPhotoIndex =
+    (index + galleryPhotos.length) % galleryPhotos.length;
 
-  renderPhotoPreview();
+  const photo = galleryPhotos[currentPhotoIndex];
+  photoDialogImage.src = photo.src;
+  photoDialogImage.alt = photo.alt || "Chrysalis venue photo";
 }
 
-function getPreviewVisibleCount() {
-  if (window.innerWidth <= 650) return 1;
-  if (window.innerWidth <= 860) return 2;
-  return 3;
+function showPreviousPhoto() {
+  showPhotoAtIndex(currentPhotoIndex - 1);
 }
 
-window.addEventListener("resize", () => {
-  renderPhotoPreview();
-});
+function showNextPhoto() {
+  showPhotoAtIndex(currentPhotoIndex + 1);
+}
 
 /* ==========================================================
    BOOKING / FORMSPREE
@@ -714,51 +673,41 @@ function clickedOutsideDialog(event, dialog) {
   );
 }
 
-function makeDemoPhoto(label, width, height, colorA, colorB) {
+function makeDemoPhoto(label, width, height, accent) {
   const safe = String(label).replace(/[<>&"]/g, "");
 
   const svg = `
     <svg xmlns="http://www.w3.org/2000/svg"
-      width="${width}"
-      height="${height}"
+      width="${width}" height="${height}"
       viewBox="0 0 ${width} ${height}">
-      <defs>
-        <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stop-color="${colorA}"/>
-          <stop offset="100%" stop-color="${colorB}"/>
-        </linearGradient>
-        <filter id="blur">
-          <feGaussianBlur stdDeviation="45"/>
-        </filter>
-      </defs>
-
-      <rect width="100%" height="100%" fill="url(#bg)"/>
-
-      <circle
-        cx="${width * .25}"
-        cy="${height * .26}"
-        r="${width * .22}"
-        fill="#ffffff"
-        opacity=".55"
-        filter="url(#blur)"
+      <rect width="100%" height="100%" fill="#f7f7f2"/>
+      <rect
+        x="18" y="18"
+        width="${width - 36}" height="${height - 36}"
+        fill="none" stroke="#111" stroke-width="2"
       />
-
       <circle
-        cx="${width * .75}"
-        cy="${height * .63}"
-        r="${width * .28}"
-        fill="#ffffff"
-        opacity=".34"
-        filter="url(#blur)"
+        cx="${width * .78}" cy="${height * .18}" r="${width * .13}"
+        fill="${accent}" opacity=".78"
       />
-
+      <g opacity=".12" stroke="#111" stroke-width="1">
+        ${Array.from({ length: 18 }, (_, i) =>
+          `<line
+            x1="${i * (width / 17)}"
+            y1="0"
+            x2="${width - i * (width / 24)}"
+            y2="${height}"
+          />`
+        ).join("")}
+      </g>
       <text
-        x="42"
-        y="${height - 42}"
-        fill="#111111"
-        font-family="monospace"
-        font-size="26"
+        x="45" y="${height - 85}"
+        fill="#111" font-family="monospace" font-size="34"
       >${safe}</text>
+      <text
+        x="45" y="${height - 44}"
+        fill="#666" font-family="monospace" font-size="18"
+      >PHOTO GOES HERE</text>
     </svg>
   `;
 

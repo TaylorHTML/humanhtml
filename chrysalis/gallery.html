@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Chrysalis photo archive — Denver DIY.">
+  <meta name="theme-color" content="#ffffff">
+  <title>CHRYSALIS — PHOTO GALLERY</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="gallery-page">
+  <header class="site-header">
+    <a class="tiny-logo" href="index.html">CHRYSALIS</a>
+
+    <nav class="site-nav" aria-label="Gallery navigation">
+      <a href="index.html">home</a>
+      <a href="index.html#calendar">calendar</a>
+      <a href="index.html#events">upcoming</a>
+      <a href="index.html#booking">booking</a>
+      <a href="index.html#about">about</a>
+    </nav>
+  </header>
+
+  <main class="gallery-main">
+    <section class="gallery-hero">
+      <span class="section-number">ARCHIVE</span>
+      <h1>PHOTO<br>GALLERY</h1>
+      <p>Shows, art, people, weird nights, and whatever else made it into the camera roll.</p>
+      <a href="index.html">← back to Chrysalis</a>
+    </section>
+
+    <div class="chain-break" aria-hidden="true">
+      <div class="chain-track">
+        <img src="assets/chain.gif" alt="">
+        <img src="assets/chain.gif" alt="">
+        <img src="assets/chain.gif" alt="">
+        <img src="assets/chain.gif" alt="">
+        <img src="assets/chain.gif" alt="">
+        <img src="assets/chain.gif" alt="">
+      </div>
+    </div>
+
+    <section class="gallery-archive-section">
+      <div id="galleryGrid" class="gallery-grid" aria-live="polite"></div>
+      <p id="galleryStatus" class="tiny-status"></p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <span>CHRYSALIS / DENVER DIY</span>
+    <a href="index.html">back home</a>
+    <span id="year"></span>
+  </footer>
+
+  <dialog id="galleryDialog" class="photo-dialog">
+    <button id="galleryClose" class="dialog-close" type="button" aria-label="Close photo">×</button>
+
+    <button id="galleryPrev" class="photo-nav photo-nav-prev" type="button" aria-label="Previous photo">←</button>
+
+    <figure>
+      <img id="galleryDialogImage" src="" alt="">
+    </figure>
+
+    <button id="galleryNext" class="photo-nav photo-nav-next" type="button" aria-label="Next photo">→</button>
+  </dialog>
+
+  <script src="config.js"></script>
+  <script src="gallery.js"></script>
+</body>
+</html>
