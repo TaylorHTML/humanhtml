@@ -1441,18 +1441,20 @@ html[data-theme="light"] .logo-image {
   position: absolute;
   inset: 0;
 
-  background: linear-gradient(
-    110deg,
-    transparent 35%,
-    rgba(25, 214, 0, 0) 40%,
-    rgba(25, 214, 0, .9) 46%,
-    rgba(70, 105, 255, 1) 50%,
-    rgba(180, 80, 255, .9) 54%,
-    rgba(180, 80, 255, 0) 60%,
-    transparent 65%
-  );
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(120, 100, 255, 1) 0%,
+      rgba(55, 110, 255, .9) 18%,
+      rgba(25, 214, 0, .7) 34%,
+      rgba(25, 214, 0, 0) 58%
+    );
 
-  background-size: 300% 100%;
+  width: 55%;
+  height: 180%;
+
+  left: -25%;
+  top: -40%;
 
   -webkit-mask-image: var(--logo);
   mask-image: var(--logo);
@@ -1466,21 +1468,32 @@ html[data-theme="light"] .logo-image {
   -webkit-mask-position: center;
   mask-position: center;
 
-  animation: logo-light-sweep 7s linear infinite;
+  animation: logo-light-orbit 9s ease-in-out infinite;
 
   pointer-events: none;
 }
 
-@keyframes logo-light-sweep {
-  from {
-    background-position: 150% 0;
+@keyframes logo-light-orbit {
+  0% {
+    transform: translate(-10%, 15%);
   }
 
-  to {
-    background-position: -150% 0;
+  20% {
+    transform: translate(90%, -5%);
+  }
+
+  45% {
+    transform: translate(145%, 30%);
+  }
+
+  70% {
+    transform: translate(65%, 50%);
+  }
+
+  100% {
+    transform: translate(-10%, 15%);
   }
 }
-
 
 /* SIZES */
 
@@ -1492,4 +1505,17 @@ html[data-theme="light"] .logo-image {
 .nav-logo {
   width: 105px;
   flex: 0 0 auto;
+}
+
+@media (max-width: 650px) {
+  .hero-logo {
+    width: 96vw;
+    max-width: none;
+    transform: scale(1.3);
+    transform-origin: center;
+  }
+
+  .nav-logo {
+    width: 125px;
+  }
 }
