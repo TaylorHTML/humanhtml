@@ -131,27 +131,29 @@ bookingForm.addEventListener("submit", submitBookingForm);
 const gifMarquee = document.querySelector("#gifMarquee");
 
 if (gifMarquee) {
-  let marqueeDirection = 1; // +1 = content moves LEFT
+  // Positive scrollLeft means the content moves LEFT visually.
+  let marqueeDirection = 1; // default: LEFT
   let touchReversed = false;
-  let position = 0;
   let lastTime = performance.now();
-  const pixelsPerSecond = 52;
 
-  // Desktop/laptop: hover reverses the visual direction to RIGHT.
+  const pixelsPerSecond = 34;
+  const prefersReducedMotion =
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // Desktop/laptop: hover reverses to RIGHT.
   gifMarquee.addEventListener("pointerenter", event => {
     if (event.pointerType !== "touch") {
       marqueeDirection = -1;
     }
   });
 
-  // Leaving hover returns to the default LEFT direction.
   gifMarquee.addEventListener("pointerleave", event => {
     if (event.pointerType !== "touch") {
       marqueeDirection = 1;
     }
   });
 
-  // Mobile/touch: each tap toggles LEFT / RIGHT.
+  // Mobile/touch: each tap toggles the direction.
   gifMarquee.addEventListener("pointerup", event => {
     if (event.pointerType === "touch") {
       touchReversed = !touchReversed;
@@ -163,28 +165,23 @@ if (gifMarquee) {
     const dt = Math.min((now - lastTime) / 1000, 0.05);
     lastTime = now;
 
-    const halfWidth = gifMarquee.scrollWidth / 2;
+    if (!prefersReducedMotion) {
+      gifMarquee.scrollLeft += marqueeDirection * pixelsPerSecond * dt;
 
-    if (halfWidth > gifMarquee.clientWidth) {
-      position += marqueeDirection * pixelsPerSecond * dt;
+      const halfWidth = gifMarquee.scrollWidth / 2;
 
-      // Loop seamlessly while moving LEFT.
-      if (position >= halfWidth) {
-        position -= halfWidth;
+      if (marqueeDirection > 0 && gifMarquee.scrollLeft >= halfWidth) {
+        gifMarquee.scrollLeft -= halfWidth;
       }
 
-      // Loop seamlessly while moving RIGHT.
-      if (position < 0) {
-        position += halfWidth;
+      if (marqueeDirection < 0 && gifMarquee.scrollLeft <= 0) {
+        gifMarquee.scrollLeft += halfWidth;
       }
-
-      gifMarquee.scrollLeft = Math.round(position);
     }
 
     requestAnimationFrame(animateGifMarquee);
   }
 
-  // Start immediately and keep recalculating as GIF dimensions finish loading.
   requestAnimationFrame(animateGifMarquee);
 }
 

@@ -1,13 +1,3 @@
-# CHRYSALIS v9
-
-Fixes:
-- GIF banner now moves LEFT immediately by default
-- hover reverses it RIGHT
-- mobile tap toggles LEFT / RIGHT
-- marquee no longer gets disabled by the device's Reduce Motion preference
-- mobile chain spacers are forcibly limited to ONE centered chain
-- spacing from “welcome to the website of” → CHRYSALIS and CHRYSALIS → “DENVER DIY” is now matched
-
 # CHRYSALIS v8
 
 Latest changes:

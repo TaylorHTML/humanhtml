@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Chrysalis — Denver DIY venue for music, art, comedy, and community.">
+  <meta name="theme-color" content="#ffffff">
+  <title>CHRYSALIS — DENVER DIY</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <header class="site-header">
+    <a class="tiny-logo" href="#top">CHRYSALIS</a>
+
+    <nav class="site-nav" aria-label="Primary navigation">
+      <a href="#calendar">calendar</a>
+      <a href="#events">upcoming</a>
+      <a href="#photos">photos</a>
+      <a href="#booking">booking</a>
+      <a href="#about">about</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-center">
+        <img class="hero-radioactive pixel-gif" src="assets/radioactive.gif" alt="" aria-hidden="true" loading="eager" fetchpriority="high">
+        <p class="eyebrow">welcome to the website of</p>
+        <h1>CHRYSALIS</h1>
+        <p class="hero-subtitle">DENVER DIY</p>
+
+        <div class="gif-marquee" id="gifMarquee" aria-hidden="true">
+          <div class="gif-marquee-track">
+            <div class="gif-strip">
+            <img src="assets/banner/retro-01.gif" alt="" aria-hidden="true" loading="eager" fetchpriority="high">
+            <img src="assets/banner/retro-02.gif" alt="" aria-hidden="true" loading="eager" fetchpriority="high">
+            <img src="assets/banner/retro-03.gif" alt="" aria-hidden="true" loading="eager" fetchpriority="high">
+            <img src="assets/banner/retro-04.gif" alt="" aria-hidden="true" loading="eager" fetchpriority="high">
+            <img src="assets/banner/retro-05.gif" alt="" aria-hidden="true" loading="eager" fetchpriority="high">
+            <img src="assets/banner/retro-06.gif" alt="" aria-hidden="true" loading="eager" fetchpriority="high">
+            <img src="assets/banner/retro-07.gif" alt="" aria-hidden="true" loading="eager" fetchpriority="high">
+            <img src="assets/banner/retro-08.gif" alt="" aria-hidden="true" loading="eager" fetchpriority="high">
+            <img src="assets/banner/retro-09.gif" alt="" aria-hidden="true" loading="eager" fetchpriority="high">
+            <img src="assets/banner/retro-10.gif" alt="" aria-hidden="true" loading="eager" fetchpriority="high">
+            <img src="assets/banner/retro-11.gif" alt="" aria-hidden="true" loading="eager" fetchpriority="high">
+            <img src="assets/banner/retro-12.gif" alt="" aria-hidden="true" loading="eager" fetchpriority="high">
+            <img src="assets/banner/dance-more.gif" alt="" aria-hidden="true" loading="eager" fetchpriority="high">
+            <img src="assets/skull.gif" alt="" aria-hidden="true" loading="eager" fetchpriority="high">
+            <img src="assets/banner/peace.gif" alt="" aria-hidden="true" loading="eager" fetchpriority="high">
+            <img src="assets/banner/earth.gif" alt="" aria-hidden="true" loading="eager" fetchpriority="high">
+            </div>
+            <div class="gif-strip">
+            <img src="assets/banner/retro-01.gif" alt="" aria-hidden="true" loading="eager" fetchpriority="high">
+            <img src="assets/banner/retro-02.gif" alt="" aria-hidden="true" loading="eager" fetchpriority="high">
+            <img src="assets/banner/retro-03.gif" alt="" aria-hidden="true" loading="eager" fetchpriority="high">
+            <img src="assets/banner/retro-04.gif" alt="" aria-hidden="true" loading="eager" fetchpriority="high">
+            <img src="assets/banner/retro-05.gif" alt="" aria-hidden="true" loading="eager" fetchpriority="high">
+            <img src="assets/banner/retro-06.gif" alt="" aria-hidden="true" loading="eager" fetchpriority="high">
+            <img src="assets/banner/retro-07.gif" alt="" aria-hidden="true" loading="eager" fetchpriority="high">
+            <img src="assets/banner/retro-08.gif" alt="" aria-hidden="true" loading="eager" fetchpriority="high">
+            <img src="assets/banner/retro-09.gif" alt="" aria-hidden="true" loading="eager" fetchpriority="high">
+            <img src="assets/banner/retro-10.gif" alt="" aria-hidden="true" loading="eager" fetchpriority="high">
+            <img src="assets/banner/retro-11.gif" alt="" aria-hidden="true" loading="eager" fetchpriority="high">
+            <img src="assets/banner/retro-12.gif" alt="" aria-hidden="true" loading="eager" fetchpriority="high">
+            <img src="assets/banner/dance-more.gif" alt="" aria-hidden="true" loading="eager" fetchpriority="high">
+            <img src="assets/skull.gif" alt="" aria-hidden="true" loading="eager" fetchpriority="high">
+            <img src="assets/banner/peace.gif" alt="" aria-hidden="true" loading="eager" fetchpriority="high">
+            <img src="assets/banner/earth.gif" alt="" aria-hidden="true" loading="eager" fetchpriority="high">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="calendar" class="site-section">
+      <div class="section-heading">
+        <div>
+          <span class="section-number">01</span>
+          <h2>Calendar</h2>
+        </div>
+
+        <p>
+          Chrysalis can host a day event and a night event on the same date.
+          Event titles open details; available slots can still be requested.
+        </p>
+      </div>
+
+      <div class="calendar-shell">
+        <div class="calendar-toolbar">
+          <button id="prevMonth" type="button" aria-label="Previous month">← prev</button>
+          <h3 id="calendarTitle">MONTH YEAR</h3>
+
+          <div class="calendar-toolbar-right">
+            <button id="todayBtn" type="button">today</button>
+            <button id="nextMonth" type="button" aria-label="Next month">next →</button>
+          </div>
+        </div>
+
+        <div class="calendar-weekdays" aria-hidden="true">
+          <span>sun</span>
+          <span>mon</span>
+          <span>tue</span>
+          <span>wed</span>
+          <span>thu</span>
+          <span>fri</span>
+          <span>sat</span>
+        </div>
+
+        <div
+          id="calendarGrid"
+          class="calendar-grid"
+          role="grid"
+          aria-label="Chrysalis public calendar"
+        ></div>
+
+        <div class="calendar-key">
+          <span><i class="key-event"></i> booked event</span>
+          <span><i class="key-open"></i> booking slot available</span>
+          <span><i class="key-full"></i> two public events</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="chain-break" aria-hidden="true">
+      <div class="chain-track">
+        <img src="assets/chain.gif" alt="">
+        <img src="assets/chain.gif" alt="">
+        <img src="assets/chain.gif" alt="">
+        <img src="assets/chain.gif" alt="">
+        <img src="assets/chain.gif" alt="">
+        <img src="assets/chain.gif" alt="">
+      </div>
+    </div>
+
+    <section id="events" class="site-section events-section">
+      <div class="section-heading">
+        <div>
+          <span class="section-number">02</span>
+          <h2>Upcoming events</h2>
+        </div>
+
+        <p>The next few things happening at Chrysalis.</p>
+      </div>
+
+      <div class="speaker-stage">
+        <img class="speaker speaker-left pixel-gif" src="assets/speakerleft.gif" alt="" aria-hidden="true">
+
+        <div id="eventsList" class="events-list" aria-live="polite"></div>
+
+        <img class="speaker speaker-right pixel-gif" src="assets/speakerright.gif" alt="" aria-hidden="true">
+      </div>
+    </section>
+
+    <div class="chain-break" aria-hidden="true">
+      <div class="chain-track">
+        <img src="assets/chain.gif" alt="">
+        <img src="assets/chain.gif" alt="">
+        <img src="assets/chain.gif" alt="">
+        <img src="assets/chain.gif" alt="">
+        <img src="assets/chain.gif" alt="">
+        <img src="assets/chain.gif" alt="">
+      </div>
+    </div>
+
+    <section id="photos" class="site-section photo-section">
+      <div class="section-heading">
+        <div>
+          <span class="section-number">03</span>
+          <h2>Photo gallery</h2>
+        </div>
+
+        <p>A few snapshots from the archive.</p>
+      </div>
+
+      <div class="photo-preview-shell">
+        <button id="photoPrev" class="preview-arrow preview-arrow-left" type="button" aria-label="Previous photos">←</button>
+
+        <div id="photoPreview" class="photo-preview-track" aria-live="polite"></div>
+
+        <button id="photoNext" class="preview-arrow preview-arrow-right" type="button" aria-label="Next photos">→</button>
+      </div>
+
+      <div class="photo-preview-footer">
+        <p id="photoStatus" class="tiny-status"></p>
+        <a class="view-gallery-button" href="gallery.html">VIEW FULL GALLERY →</a>
+      </div>
+    </section>
+
+    <div class="chain-break" aria-hidden="true">
+      <div class="chain-track">
+        <img src="assets/chain.gif" alt="">
+        <img src="assets/chain.gif" alt="">
+        <img src="assets/chain.gif" alt="">
+        <img src="assets/chain.gif" alt="">
+        <img src="assets/chain.gif" alt="">
+        <img src="assets/chain.gif" alt="">
+      </div>
+    </div>
+
+    <section id="booking" class="site-section booking-section">
+      <div class="section-heading">
+        <div>
+          <span class="section-number">04</span>
+          <h2>Booking</h2>
+        </div>
+
+        <p>
+          Request a show, art event, comedy night, private event,
+          or something harder to categorize.
+        </p>
+      </div>
+
+      <div class="booking-layout">
+        <form
+          id="bookingForm"
+          class="booking-form"
+          action="https://formspree.io/f/mqpkldal"
+          method="POST"
+        >
+          <input type="hidden" name="_subject" value="New Chrysalis booking request">
+
+          <div class="honeypot" aria-hidden="true">
+            <label>
+              Leave this empty
+              <input type="text" name="_gotcha" tabindex="-1" autocomplete="off">
+            </label>
+          </div>
+
+          <label>
+            <span>artist / organization *</span>
+            <input name="artist_or_organization" required>
+          </label>
+
+          <label>
+            <span>contact name *</span>
+            <input name="contact_name" autocomplete="name" required>
+          </label>
+
+          <label>
+            <span>email *</span>
+            <input type="email" name="email" autocomplete="email" required>
+          </label>
+
+          <label>
+            <span>phone</span>
+            <input type="tel" name="phone" autocomplete="tel">
+          </label>
+
+          <label>
+            <span>preferred date *</span>
+            <input id="preferredDate" type="date" name="preferred_date" required>
+          </label>
+
+          <label>
+            <span>alternate date</span>
+            <input type="date" name="alternate_date">
+          </label>
+
+          <label class="full">
+            <span>event type *</span>
+            <select name="event_type" required>
+              <option value="">choose one</option>
+              <option>Concert / live music</option>
+              <option>Comedy</option>
+              <option>Art event</option>
+              <option>Private event</option>
+              <option>Community event</option>
+              <option>Other</option>
+            </select>
+          </label>
+
+          <label class="full">
+            <span>website / social</span>
+            <input type="text" name="link" placeholder="@handle, Bandcamp, website, etc.">
+          </label>
+
+          <label class="full">
+            <span>tell us about it *</span>
+            <textarea name="event_details" rows="6" required></textarea>
+          </label>
+
+          <div class="form-footer full">
+            <p>Submitting this form does not automatically reserve the date.</p>
+            <button id="bookingSubmit" type="submit">SEND REQUEST</button>
+          </div>
+
+          <p
+            id="bookingStatus"
+            class="booking-status full"
+            role="status"
+            aria-live="polite"
+          ></p>
+        </form>
+      </div>
+    </section>
+
+    <div class="chain-break" aria-hidden="true">
+      <div class="chain-track">
+        <img src="assets/chain.gif" alt="">
+        <img src="assets/chain.gif" alt="">
+        <img src="assets/chain.gif" alt="">
+        <img src="assets/chain.gif" alt="">
+        <img src="assets/chain.gif" alt="">
+        <img src="assets/chain.gif" alt="">
+      </div>
+    </div>
+
+    <section id="about" class="site-section about-section">
+      <div class="section-heading">
+        <div>
+          <span class="section-number">05</span>
+          <h2>About</h2>
+        </div>
+
+        <p>Independent space. Denver, Colorado.</p>
+      </div>
+
+      <div class="about-grid">
+        <div class="about-copy">
+          <p class="about-lead">
+            Chrysalis is a DIY space for music, art, comedy,
+            community nights, and whatever else deserves a room.
+          </p>
+
+          <p>
+            Replace this with the venue's actual story, plus the useful stuff:
+            accessibility, address, public contact info, and anything people
+            should know before showing up.
+          </p>
+
+          <div class="about-links">
+            <a href="#booking">booking</a>
+            <a href="#calendar">calendar</a>
+            <a href="#">instagram</a>
+            <a href="mailto:hello@example.com">email</a>
+          </div>
+        </div>
+
+        <div class="about-facts">
+          <dl>
+            <div><dt>city</dt><dd>Denver, CO</dd></div>
+            <div><dt>type</dt><dd>DIY venue / creative space</dd></div>
+            <div><dt>booking</dt><dd>by request</dd></div>
+            <div><dt>status</dt><dd>alive</dd></div>
+          </dl>
+
+          <img
+            class="about-smiley pixel-gif"
+            src="assets/dancingsmiley.gif"
+            alt=""
+            aria-hidden="true"
+          >
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <span>CHRYSALIS / DENVER DIY</span>
+    <span>built by humanHTML</span>
+    <span id="year"></span>
+  </footer>
+
+  <dialog id="eventDialog" class="event-dialog">
+    <button
+      id="closeEventDialog"
+      class="dialog-close"
+      type="button"
+      aria-label="Close event"
+    >×</button>
+
+    <p id="dialogDate" class="dialog-kicker"></p>
+    <img id="dialogFlyer" class="event-flyer-modal" src="" alt="" hidden>
+    <h2 id="dialogTitle"></h2>
+    <p id="dialogMeta"></p>
+    <p id="dialogDescription"></p>
+  </dialog>
+
+  <dialog id="photoDialog" class="photo-dialog">
+    <button
+      id="closePhotoDialog"
+      class="dialog-close"
+      type="button"
+      aria-label="Close photo"
+    >×</button>
+
+    <button
+      id="prevPhoto"
+      class="photo-nav photo-nav-prev"
+      type="button"
+      aria-label="Previous photo"
+    >←</button>
+
+    <figure>
+      <img id="photoDialogImage" src="" alt="">
+    </figure>
+
+    <button
+      id="nextPhoto"
+      class="photo-nav photo-nav-next"
+      type="button"
+      aria-label="Next photo"
+    >→</button>
+  </dialog>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

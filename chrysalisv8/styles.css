@@ -136,7 +136,7 @@ textarea {
 }
 
 .eyebrow {
-  margin: 0 0 1.35rem;
+  margin: 0 0 1rem;
   color: var(--muted);
   font-family: "Courier New", monospace;
   font-size: 11px;
@@ -159,7 +159,7 @@ textarea {
 }
 
 .hero-subtitle {
-  margin: 1.35rem 0 2.5rem;
+  margin: 1.7rem 0 2.5rem;
   font-family: "Courier New", monospace;
   font-size: clamp(1rem, 2.2vw, 1.6rem);
   letter-spacing: .22em;
@@ -1088,19 +1088,17 @@ textarea {
 
 
   .chain-track {
-    min-width: 0 !important;
-    width: 100% !important;
-    justify-content: center !important;
+    min-width: 0;
+    justify-content: center;
   }
 
   .chain-track img {
-    display: none !important;
+    display: none;
   }
 
   .chain-track img:first-child {
-    display: block !important;
-    width: min(180px, 72vw) !important;
-    flex: 0 0 auto !important;
+    display: block;
+    width: min(170px, 72vw);
   }
 
   .site-section {
@@ -1283,12 +1281,4 @@ textarea {
 
 .gif-strip img {
   contain: paint;
-}
-
-
-@media (max-width: 650px) {
-  .chain-track > img:nth-child(n+2) {
-    display: none !important;
-    width: 0 !important;
-  }
 }
