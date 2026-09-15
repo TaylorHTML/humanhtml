@@ -1,18 +1,3 @@
-# CHRYSALIS v11
-
-Changes:
-- DARK mode is now the default.
-- Added old-web-style `[DARK] / LIGHT` toggle to the fixed header.
-- Theme choice is remembered with localStorage and carries over to the gallery.
-- Light mode keeps the existing palette, but the moving background haze is more visible.
-- Dark mode uses moving green / cobalt / purple haze behind the site.
-- The trance / techno GIF is included in both copies of the hero GIF banner.
-- GIF banner moves LEFT by default.
-- Hover reverses the banner RIGHT smoothly from its exact current position — no jumping to another part of the strip.
-- On touch devices, tapping the banner toggles LEFT / RIGHT.
-- Calendar intro copy changed to: “Shows, art, comedy, and whatever else lands on the calendar.”
-- Cache-busted CSS / JS references to v11.
-
 # CHRYSALIS v10
 
 Banner + green cleanup:

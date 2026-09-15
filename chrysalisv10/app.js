@@ -123,78 +123,18 @@ bookingForm.addEventListener("submit", submitBookingForm);
 
 /* ==========================================================
    GIF MARQUEE
-   Left by default. Hover reverses smoothly from the exact
-   current position. Touch taps toggle direction.
+   CSS handles the always-on leftward motion.
+   On touch devices, tapping toggles the reversed direction.
    ========================================================== */
 
 const gifMarquee = document.querySelector("#gifMarquee");
-const gifTrack = gifMarquee?.querySelector(".gif-marquee-track");
-const firstGifStrip = gifTrack?.querySelector(".gif-strip");
 
-if (gifMarquee && gifTrack && firstGifStrip) {
-  let offset = 0;
-  let direction = -1; // -1 = LEFT, +1 = RIGHT
-  let touchReversed = false;
-  let lastFrame = performance.now();
-  let stripWidth = 0;
-  const speed = 46;
-
-  function measureMarquee() {
-    stripWidth = firstGifStrip.getBoundingClientRect().width;
-
-    if (stripWidth > 0) {
-      while (offset <= -stripWidth) offset += stripWidth;
-      while (offset > 0) offset -= stripWidth;
-    }
-  }
-
-  function animateMarquee(now) {
-    const delta = Math.min((now - lastFrame) / 1000, 0.05);
-    lastFrame = now;
-
-    if (stripWidth > 0) {
-      offset += direction * speed * delta;
-
-      if (offset <= -stripWidth) {
-        offset += stripWidth;
-      } else if (offset > 0) {
-        offset -= stripWidth;
-      }
-
-      gifTrack.style.transform = `translate3d(${offset}px, 0, 0)`;
-    }
-
-    requestAnimationFrame(animateMarquee);
-  }
-
-  gifMarquee.addEventListener("pointerenter", event => {
-    if (event.pointerType !== "touch") {
-      direction = 1;
-    }
-  });
-
-  gifMarquee.addEventListener("pointerleave", event => {
-    if (event.pointerType !== "touch") {
-      direction = -1;
-    }
-  });
-
+if (gifMarquee) {
   gifMarquee.addEventListener("pointerup", event => {
     if (event.pointerType === "touch") {
-      touchReversed = !touchReversed;
-      direction = touchReversed ? 1 : -1;
+      gifMarquee.classList.toggle("is-reversed");
     }
   });
-
-  window.addEventListener("resize", measureMarquee);
-
-  // Re-measure as image dimensions settle without changing position.
-  gifTrack.querySelectorAll("img").forEach(img => {
-    if (!img.complete) img.addEventListener("load", measureMarquee, { once: true });
-  });
-
-  measureMarquee();
-  requestAnimationFrame(animateMarquee);
 }
 
 init();
