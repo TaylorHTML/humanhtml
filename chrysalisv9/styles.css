@@ -179,8 +179,6 @@ textarea {
 .gif-marquee-track {
   display: flex;
   width: max-content;
-  animation: chrysalis-marquee-left 38s linear infinite;
-  will-change: transform;
 }
 
 .gif-strip {
@@ -204,33 +202,6 @@ textarea {
 .gif-strip img:nth-child(11),
 .gif-strip img:nth-child(12) {
   max-height: 112px;
-}
-
-@keyframes chrysalis-marquee-left {
-  from {
-    transform: translate3d(0, 0, 0);
-  }
-
-  to {
-    transform: translate3d(-50%, 0, 0);
-  }
-}
-
-/* Default direction = LEFT. */
-.gif-marquee-track {
-  animation-direction: normal;
-}
-
-/* Desktop/laptop hover = RIGHT. */
-@media (hover: hover) and (pointer: fine) {
-  .gif-marquee:hover .gif-marquee-track {
-    animation-direction: reverse;
-  }
-}
-
-/* Touch tap toggles this class with JS. */
-.gif-marquee.is-reversed .gif-marquee-track {
-  animation-direction: reverse;
 }
 
 
@@ -444,7 +415,7 @@ textarea {
 }
 
 .calendar-event-chip:hover {
-  color: var(--green);
+  color: #008c00;
 }
 
 .request-slot {
@@ -453,7 +424,7 @@ textarea {
   right: 8px;
   bottom: 7px;
   width: auto;
-  color: var(--green);
+  color: #078000;
   font-family: "Courier New", monospace;
   font-size: 9px;
   text-decoration: underline;
@@ -556,7 +527,7 @@ textarea {
 }
 
 .event-title:hover {
-  color: var(--green);
+  color: #008c00;
 }
 
 .empty-state {
@@ -1294,36 +1265,30 @@ textarea {
 }
 
 
+.gif-marquee {
+  overscroll-behavior-x: none;
+  scrollbar-width: none;
+}
+
+.gif-marquee::-webkit-scrollbar {
+  display: none;
+}
+
+.gif-marquee-track,
+.gif-strip,
+.gif-strip img {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+.gif-strip img {
+  contain: paint;
+}
 
 
 @media (max-width: 650px) {
   .chain-track > img:nth-child(n+2) {
     display: none !important;
     width: 0 !important;
-  }
-}
-
-
-@media (max-width: 650px) {
-  .chain-break {
-    overflow: hidden !important;
-  }
-
-  .chain-track {
-    width: 100% !important;
-    min-width: 100% !important;
-    display: flex !important;
-    justify-content: center !important;
-  }
-
-  .chain-track > img {
-    display: none !important;
-  }
-
-  .chain-track > img:first-child {
-    display: block !important;
-    width: min(170px, 72vw) !important;
-    max-width: 72vw !important;
-    flex: 0 0 auto !important;
   }
 }

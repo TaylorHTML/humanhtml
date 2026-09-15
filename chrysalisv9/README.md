@@ -1,14 +1,3 @@
-# CHRYSALIS v10
-
-Banner + green cleanup:
-- restored the original always-running CSS marquee approach
-- GIF banner moves LEFT immediately on page load
-- desktop hover reverses it RIGHT
-- mobile tap toggles LEFT / RIGHT
-- `[open]`, `request another slot`, calendar event hover, and upcoming-event hover now use the exact same `--green` as the section numbers
-- reinforced the one-chain-only mobile spacer rule
-- added `?v=10` cache busting to CSS/JS references so stale browser files do not keep showing older behavior
-
 # CHRYSALIS v9
 
 Fixes:
