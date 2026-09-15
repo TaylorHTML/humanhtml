@@ -1568,13 +1568,11 @@ background-image:
 }
 
 
-/* ==========================================================
-   MOBILE SPEAKERS
-   ========================================================== */
+
+
 
 @media (max-width: 650px) {
 
-  /* reduce the gap between the intro paragraph and speakers */
   #events .section-heading {
     margin-bottom: 1.5rem;
   }
@@ -1582,35 +1580,43 @@ background-image:
   .speaker-stage {
     display: grid;
 
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr auto 1fr;
     grid-template-rows: auto auto;
 
-    column-gap: 18px;
+    column-gap: 12px;
     row-gap: 12px;
 
-    align-items: end;
+    align-items: center;
     width: 100%;
   }
 
   .speaker {
     display: block !important;
-
     width: 80px;
     height: auto;
-
-    /* removes the desktop spacing */
     margin-top: 0;
   }
 
   .speaker-left {
     grid-column: 1;
     grid-row: 1;
-
     justify-self: end;
   }
 
-  .speaker-right {
+  .speaker-smiley {
+    display: block;
+
     grid-column: 2;
+    grid-row: 1;
+
+    width: 54px;
+    height: auto;
+
+    justify-self: center;
+  }
+
+  .speaker-right {
+    grid-column: 3;
     grid-row: 1;
 
     justify-self: start;
@@ -1624,5 +1630,9 @@ background-image:
 
     width: 100%;
   }
+}
 
+
+.speaker-smiley {
+  display: none;
 }
